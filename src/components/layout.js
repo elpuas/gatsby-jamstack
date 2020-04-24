@@ -35,7 +35,7 @@ const Layout = ({ children }) => {
 		<>
 			<header>
 				<Link  to="/">elPuas Jamstack</Link>
-				{menuItems.map(item =>(
+				{menuItems.filter(item => item.url !== '/').map(item =>(
 					<Link to={item.url}>{item.label}</Link>
 				))}
 			</header>

@@ -9,6 +9,12 @@ exports.createPages = async({ actions, graphql }) => {
 			  isFrontPage
 			}
 		  }
+		  posts {
+			nodes {
+			  uri
+			  id
+			}
+		  }
 		}
 	  }
 	`;
@@ -22,6 +28,17 @@ exports.createPages = async({ actions, graphql }) => {
 			component: require.resolve('./src/templates/page-template.js'),
 			context: {
 				id: page.id
+			}
+		})
+	})
+
+	result.data.wpgraphql.posts.nodes.forEach( post => {
+		console.log(post);
+		actions.createPage({
+			path: `blog${post.uri}`,
+			component: require.resolve('./src/templates/post-template.js'),
+			context: {
+				id: post.id
 			}
 		})
 	})
